@@ -19,16 +19,14 @@ class Config:
     # TODO 1: Cambia este valor por una cadena secreta propia.
     #         En un proyecto real se lee de una variable de entorno:
     #         os.environ.get("SECRET_KEY", "valor-por-defecto")
-    SECRET_KEY = "cambia-esta-clave"
+    SECRET_KEY = "2509"
 
     # URI de conexión a la base de datos.
     # Para SQLite el formato es: sqlite:///<ruta-absoluta-al-archivo>
     # El archivo .db se creará dentro de la carpeta instance/
     # TODO 2: Verifica que la ruta apunte a instance/tienda.db.
     #         Si cambias el nombre del archivo, actualízalo aquí.
-    SQLALCHEMY_DATABASE_URI = "sqlite:///" + os.path.join(
-        BASE_DIR, "instance", "tienda.db"
-    )
+    SQLALCHEMY_DATABASE_URI = "sqlite:///instance/tienda.db"
 
     # Desactiva un sistema de eventos de SQLAlchemy que no usamos y
     # que consume memoria innecesariamente.
