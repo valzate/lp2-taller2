@@ -28,6 +28,8 @@ def registrar_comandos(app):
         """Crea todas las tablas definidas en models.py."""
         # TODO 1: Llama a db.create_all() para crear las tablas.
         # TODO 2: Muestra un mensaje de confirmación con click.echo(...)
+        db.create_all()
+        click.echo("Tablas creadas exitosamente.")
         pass
 
     @app.cli.command("reset-db")
@@ -35,6 +37,9 @@ def registrar_comandos(app):
         """Borra y vuelve a crear todas las tablas (¡pierde los datos!)."""
         # TODO 3: Llama a db.drop_all() y luego a db.create_all()
         # TODO 4: Muestra un mensaje de confirmación
+        db.drop_all()
+        db.create_all()
+        click.echo("Tablas borradas y creadas exitosamente.")
         pass
 
     @app.cli.command("seed-db")
@@ -44,31 +49,46 @@ def registrar_comandos(app):
         # --- Leer el archivo JSON -------------------------------------
         # TODO 5: Abre RUTA_PRODUCTOS con encoding="utf-8" y usa
         #         json.load() para obtener la lista de productos.
-        # datos = ...
+        with open(RUTA_PRODUCTOS, encoding="utf-8") as archivo:
+            productos = json.load(archivo)
 
         # --- Insertar categorías y productos --------------------------
         # Por cada producto del JSON debes:
-        #
-        # TODO 6: Buscar si su categoría ya existe en la base de datos:
-        #         categoria = Categoria.query.filter_by(
-        #             nombre=item["categoria"]).first()
-        #
-        # TODO 7: Si no existe, crearla y agregarla a la sesión:
-        #         categoria = Categoria(nombre=item["categoria"])
-        #         db.session.add(categoria)
-        #         db.session.flush()   # asigna el id sin confirmar aún
-        #
-        # TODO 8: Evitar duplicados: si ya existe un Producto con ese sku
-        #         (Producto.query.filter_by(sku=item["sku"]).first()),
-        #         saltarlo con 'continue'.
-        #
-        # TODO 9: Crear el objeto Producto con los datos del JSON y
-        #         asignarle categoria_id=categoria.id, luego
-        #         db.session.add(producto)
+        for datos in productos:
+            # TODO 6: Buscar si su categoría ya existe en la base de datos:
+            categoria = Categoria.query.filter_by(
+                nombre=datos["categoria"]).first()
+            
+            # TODO 7: Si no existe, crearla y agregarla a la sesión:
+            if not categoria:
+                categoria = Categoria(nombre=datos["categoria"])
+                db.session.add(categoria)
+                db.session.flush()  # asigna el id sin confirmar aún
+            #
+            # TODO 8: Evitar duplicados: si ya existe un Producto con ese sku
+            producto = Producto.query.filter_by(sku=datos["sku"]).first()
+            if producto:
+                click.echo(f"Producto con SKU {datos['sku']} ya existe. Se omite.")
+                continue
+            #
+            # TODO 9: Crear el objeto Producto con los datos del JSON y
+            #         asignarle categoria_id=categoria.id, luego
+            #         db.session.add(producto)}
+            producto = Producto(
+                sku=datos["sku"],
+                marca=datos["marca"],
+                nombre=datos["nombre"],
+                precio=datos["precio"],
+                foto=datos.get("foto"),
+                stock=datos["stock"],
+                activo=datos["activo"],
+                categoria_id=categoria.id,
+            )
+            db.session.add(producto)
 
         # --- Confirmar la transacción ---------------------------------
         # TODO 10: Llama a db.session.commit() para guardar TODO de una
         #          vez. Hasta este momento nada se ha escrito en disco.
-
+        db.session.commit()
         # TODO 11: Muestra cuántos productos se cargaron con click.echo(...)
-        pass
+        click.echo(f"{len(productos)} productos cargados exitosamente.")
