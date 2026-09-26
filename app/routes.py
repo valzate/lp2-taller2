@@ -31,13 +31,24 @@ def index():
     #                 categoria_id=categoria_id).all()
     #         Si no viene, trae todos los productos:
     #             productos = Producto.query.all()
+    if categoria_id:
+        productos = Producto.query.filter_by(categoria_id=categoria_id).all()
+    else:
+        productos = Producto.query.all()
 
     # TODO 2: Consulta todas las categorías para pintar el menú de filtros:
     #         categorias = Categoria.query.order_by(Categoria.nombre).all()
+    categorias = Categoria.query.order_by(Categoria.nombre).all()
 
     # TODO 3: Renderiza "index.html" enviando 'productos', 'categorias' y
     #         'categoria_id' (para marcar el filtro activo).
-    pass
+    return render_template(
+        "index.html",
+        productos=productos,
+        categorias=categorias,
+        categoria_id=categoria_id,
+    )
+    
 
 
 @main.route("/producto/<sku>")
@@ -48,10 +59,10 @@ def detalle(sku):
     #             producto = Producto.query.filter_by(sku=sku).first_or_404()
     #         first_or_404() devuelve el objeto o lanza un 404 automáticamente,
     #         así te ahorras el 'if producto is None: abort(404)'.
+    producto = Producto.query.filter_by(sku=sku).first_or_404()
 
     # TODO 5: Renderiza "detalle.html" pasándole el producto.
-    pass
-
+    return render_template("detalle.html", producto=producto)
 
 @main.route("/categorias")
 def categorias():
@@ -61,6 +72,7 @@ def categorias():
     #         Gracias al backref definido en el modelo, dentro del template
     #         puedes usar categoria.productos para contar sus productos
     #         con el filtro |length de Jinja2.
+    categorias = Categoria.query.order_by(Categoria.nombre).all()
 
     # TODO 7: Renderiza "categorias.html" con la lista obtenida.
-    pass
+    return render_template("categorias.html", categorias=categorias)
