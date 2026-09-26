@@ -28,5 +28,55 @@
     "stock": 0,
     "activo": true,
     "categoria": "Audio"
+  },
+  {
+    "sku": "TEC-003",
+    "marca": "Samsung",
+    "nombre": "Monitor Curvo 27\"",
+    "precio": 899900,
+    "foto": "images/monitor-samsung.jpg",
+    "stock": 5,
+    "activo": false,
+    "categoria": "Monitores"
+  },
+  {
+    "sku": "TEC-004",
+    "marca": "Apple",
+    "nombre": "Teclado Magic Keyboard",
+    "precio": 499900,
+    "foto": "images/teclado-apple.jpg",
+    "stock": 15,
+    "activo": true,
+    "categoria": "Periféricos"
+  },
+  {
+    "sku": "TEC-005",
+    "marca": "Dell",
+    "nombre": "Laptop XPS 13",
+    "precio": 2499900,
+    "foto": "images/laptop-dell-xps.jpg",
+    "stock": 8,
+    "activo": true,
+    "categoria": "Computadoras"
+  },
+  {
+    "sku": "AUD-002",
+    "marca": "Kaney",
+    "nombre": "Audífonos Inalámbricos Kaney",
+    "precio": 199000,
+    "foto": "images/audifonos-kaney.jpg",
+    "stock": 0,
+    "activo": true,
+    "categoria": "Audio"
+  },
+  {
+    "sku": "TEC-006",
+    "marca": "Logitech",
+    "nombre": "Teclado mecánico G Pro",
+    "precio": 299900,
+    "foto": "images/teclado-logitech-gpro.jpg",
+    "stock": 20,
+    "activo": true,
+    "categoria": "Periféricos"
   }
 ]
