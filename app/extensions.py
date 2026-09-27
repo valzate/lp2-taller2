@@ -14,7 +14,7 @@ from app import create_app
 
 # Instancia global del ORM. Todavía no está ligada a ninguna aplicación:
 # eso ocurre en create_app() con db.init_app(app).
-create_app()
+app = create_app()
 db = SQLAlchemy()
 db.init_app(app)
 
