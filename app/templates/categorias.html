@@ -13,13 +13,15 @@
     {# TODO 2: Por cada una muestra su nombre y, entre paréntesis, cuántos
        productos tiene. Gracias al backref puedes contar así:
            {{ categoria.productos|length }}
+            Y enlázala al catálogo filtrado:
+           <a href="{{ url_for('main.index', categoria=categoria.id) }}">...</a>#}
 
-
-       Y enlázala al catálogo filtrado:
-           <a href="{{ url_for('main.index', categoria=categoria.id) }}">...</a>
-    #}
-    {{ categoria.productos|length }}
+           {% for categoria in categorias %}
+    <p>
+        {{ categoria.nombre }} ({{ categoria.productos|length }})
+    </p>
     <a href="{{ url_for('main.index', categoria=categoria.id) }}">...</a>
+{% endfor %}
 
     {# TODO 3: Cierra el ciclo con {% endfor %} #}
     </ul>
