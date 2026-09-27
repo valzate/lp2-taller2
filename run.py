@@ -12,6 +12,7 @@ O usando el CLI de Flask (necesario para los comandos init-db / seed-db):
 from app import create_app
 from app.extensions import db
 
+
 app = create_app()
 
 
@@ -27,9 +28,11 @@ def make_shell_context():
 
     # TODO 1: Retorna un diccionario con db, Producto y Categoria, por ej:
     #         return {"db": db, "Producto": Producto, "Categoria": Categoria}
-    pass
+    return {"db": db, "Producto": Producto, "Categoria": Categoria}
+    
 
 
 if __name__ == "__main__":
     # TODO 2: Ejecuta la aplicación en modo debug (app.run(debug=True))
+    (app.run(debug=True))
     pass
