@@ -26,7 +26,7 @@ class Config:
     # El archivo .db se creará dentro de la carpeta instance/
     # TODO 2: Verifica que la ruta apunte a instance/tienda.db.
     #         Si cambias el nombre del archivo, actualízalo aquí.
-    SQLALCHEMY_DATABASE_URI = "sqlite:///instance/tienda.db"
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'instance', 'tienda.db')}"
 
     # Desactiva un sistema de eventos de SQLAlchemy que no usamos y
     # que consume memoria innecesariamente.
